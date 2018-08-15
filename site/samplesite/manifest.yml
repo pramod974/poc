@@ -1,0 +1,7 @@
+---
+applications:
+ - name: thoughtpro
+   memory: 128M
+   health-check-type: none
+   command: python ./run.py
+   instances: 1

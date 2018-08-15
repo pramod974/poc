@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+
+      window.onload = function() {
+   var rawText = '';
+          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+
+          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+            $("#chatbox").append(botHtml);
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          });
+};
+    </script>
+<script src="https://ibm-watson-data-lab.github.io/concierge/widget/chat-widget.js"></script>
+<script>
+var Concierge = new Concierge({
+  url:"https://openwhisk.ng.bluemix.net/api/v1/web/DL_BluemixAdmin_Consumerism@nttdata.com_dev/concierge/chat",
+  workspace_id:"8308bf8a-0581-4208-8416-585bba94fe9c"
+});
+</script>
+
+   <!-->
+    <script src="https://ibm-watson-data-lab.github.io/concierge/widget/chat-widget.js"></script>
+
+<script>
+var Concierge = new Concierge({
+  url:"https://openwhisk.ng.bluemix.net/api/v1/web/DL_BluemixAdmin_Consumerism@nttdata.com_dev/concierge/chat",
+  workspace_id:"4ced3294-0319-4032-bc3d-69882d590d4c"
+}); <--!>
+</script>
+  </head>
+  <body>
+    <h1>Flask AI Chat bot Demo</h1>
+    <h3>A web implementation of Chat Bot using IBM Assitant and Discovery service coupled with Flask.</h3>
+    <div>
+      <div id="chatbox">
+
+      </div>
+      <div id="userInput">
+        <input id="textInput" type="text" name="msg" placeholder="Message">
+        <input id="buttonInput" type="submit" value="Send">
+      </div>
+      <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+            $("#chatbox").append(botHtml);
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          });
+        }
+        $("#textInput").keypress(function(e) {
+            if(e.which == 13) {
+                getBotResponse();
+            }
+        });
+        $("#buttonInput").click(function() {
+          getBotResponse();
+        })
+      </script>
+    </div>
+  </body>
+</html>
